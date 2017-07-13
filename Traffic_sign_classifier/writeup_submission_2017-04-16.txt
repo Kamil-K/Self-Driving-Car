@@ -1,0 +1,177 @@
+#**Traffic Sign Recognition** 
+
+##Writeup - Kamil Kaczmarczyk - 2017-04-16
+
+---
+
+**Build a Traffic Sign Recognition Project**
+
+The goals / steps of this project are the following:
+* Load the data set (see below for links to the project data set)
+* Explore, summarize and visualize the data set
+* Design, train and test a model architecture
+* Use the model to make predictions on new images
+* Analyze the softmax probabilities of the new images
+* Summarize the results with a written report
+
+
+[//]: # (Image References)
+
+[image1]: ./examples/1.jpg "Traffic sign - label 1 - Speed limit (30km/h)"
+[image2]: ./examples/12.jpg "Traffic sign - label 12 - Priority road"
+[image3]: ./examples/13.jpg "Traffic sign - label 13 - Yield"
+[image4]: ./examples/14.jpg "Traffic sign - label 14 - Stop"
+[image5]: ./examples/27.jpg "Traffic sign - label 27 - Pedestrians"
+[image6]: ./examples/40.jpg "Traffic sign - label 40 - Roundabout mandatory"
+
+## Rubric Points
+###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+
+---
+###Writeup 
+
+###Data Set Summary & Exploration
+
+####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+
+ANS:
+
+I used the basic python libraries to calculate summary statistics of the traffic
+signs data set:
+
+* The size of training set is 27839 samples.
+* The size of the validation set is 6960 samples.
+* The size of test set is 12630 samples.
+* The shape of a traffic sign image is (32, 32, 3) where 32x32 are the dimensions of 2D image and 3 is rgb color coding.
+* The number of unique classes/labels in the data set is 43.
+
+####2. Include an exploratory visualization of the dataset.
+
+ANS:
+
+Project Report contains:
+* Exploratory visualisation of the distribution of the amount of images per label class for each of the datasets: training, validation and testing.
+* Signs' images for each label class which are randomly selected out of the training set from a given label categories.
+
+###Design and Test a Model Architecture
+
+####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+
+ANS:
+
+Data Preprocessing Pipeline:
+* Step 1: Shuffle the training set - to avoid uneven local distributions of classes - similar approach as the one shown in the LeNet 5 Lab.
+* Step 2: Convert to grayscale - for most of the traffic signs a grayscale should be enough for classification task and it helps to reduce the dimensionality of the dataset. 
+* Step 3: Normalize the datasets - technique used for normalization applies the basic formula (pixel - 128.)/128.
+
+####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+
+ANS:
+
+My final model consisted of the following layers:
+
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 32x32x1 Grayscale images						| 
+| Convolution 3x3     	| 1x1 stride, valid padding, outputs 28x28x6 	|
+| RELU					|												|
+| Max pooling			| 2x2 stride, valid padding, utput = 14x14x6	|
+| Convolution 3x3	    | 1x1 stride, valid padding, outputs 10x10x16	|
+| RELU					|												|
+| Max pooling			| 2x2 stride, valid padding, utput = 5x5x16		|
+| Fully connected		| etc.        									|
+| RELU					|												|
+| Fully connected		| etc.        									|
+| RELU					|												|
+| Fully connected		| etc.        									|
+|						|												|
+|						|												|
+ 
+
+
+####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+
+ANS:
+
+To train the model, I used the AdamOptimizer with a learning rate or 0.001 which is a standard value. 
+The hyperparameters used were EPOCHS = 30 and BATCH_SIZE = 128.
+
+####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+ANS:
+
+I decided it to use an already proven architecture of LeNet 5 and it proved to be very reliable. The architecture was used in MINST data for digit recognition with very good results. Later based on similar architecture a traffic sign classification problem was also solved also by Yan LeCun with very high accuracies. This made me think that this architecture and approach are suitable for my traffic sign classification problem.
+
+The differences between the first and the final architeture were:
+- first architecture had no data preprocessing steps such as normalization or grascale conversion --> through experimentation with different preprocessing these two steps proved to be contributing to the final accuracy for validationa and testing.
+- number of Epochs was 10 (insted of 30 in the final solution) --> this is because with an increasing number of Epochs the results were shown to keep increasing the accuracy. 30 seemed to be the right balance for computational cost and final accuracy as going further would probably not increase much the results.
+
+My final model results were:
+* validation set accuracy of 0.982
+* test set accuracy of 0.911
+
+The above steps proved to be satisfactory to improve the validation accuracy to the required level of 0.982.
+
+Since both the final test accuracy (0.911) and validation accuracy (0.982) are relatively high and also still acceptable close to each other this indicates no over- or underfitting of the results. This is why the primary LaNet architecture not needed to be fundamentally changed.
+
+###Test a Model on New Images
+
+####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+
+ANS:
+
+Six German traffic signs that I found on the web can be found in the report in the Load and Output the Images section in Step 3. 
+
+| Image			        | Image Class	|
+|:---------------------:|:-------------:| 
+| Speed limit (30km/h)	| 1				|
+| Priority road			| 12			|
+| Yield					| 13			|
+| Stop					| 14			|
+| Pedestrians			| 27			|				
+| Roundabout mandatory	| 40			|
+
+They all are within all the classes of the database, they are converted to 32x32 and then further preprocessed to grayscale and normalized. 
+
+For a human eye they all look pretty distinguishable. However as the pictures were converted to square shapes from rectangular ones, the signs have some slightly distorted shapes. This is perhaps an influence on the final classification accuracy.
+
+####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+
+ANS:
+
+The model was able to correctly guess 3 of the 6 traffic signs, which gives an accuracy of 50%. This does not compare favorably to the accuracy on the test set of 0.911. One possible reason is perhaps due to the image distortion due to image resolution and shape conversions performed in order to match the current network design and architecture.
+
+####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+
+ANS:
+
+The code for making predictions on my final model is located in the 33rd cell of the Ipython notebook.
+
+Total accuracy of predictions is 50% which gives 3 out of 6 images classified correctly. When looking however at the actual values out of the softmax function one can see that the predictions' probabilities are relatively low and all very close to each other. This is normally a sign of low certainty of the results.
+
+Few potential reasons for this could be:
+- the new test images are very different from the ones used in a training set - this also refers to the image shape distortion due to resolution decrease and shape conversion to 32x32, grayscale conversion and normalization.
+- softmax and probabilities estimations are potentially wrongly implemented, this needs to be evaluated.
+
+Top 5 softmax probabilities for each image along with the indicies:
+
+predictions
+[[ 0.03307512  0.03296246  0.03116712  0.02926605  0.02856625]
+ [ 0.03433702  0.03355465  0.03220178  0.03126609  0.0276641 ]
+ [ 0.03819133  0.03254429  0.03166661  0.02974143  0.02950897]
+ [ 0.03614061  0.03516696  0.03201852  0.03105849  0.02951468]
+ [ 0.03759872  0.03139155  0.03071049  0.02864688  0.02860651]
+ [ 0.0297233   0.02969859  0.02914131  0.02908011  0.02745303]]
+predictionIndicies
+[[39  4 11 31 35]
+ [11  2  4 39 29]
+ [ 4 13 11 35 39]
+ [39  4 11 35 25]
+ [ 2 11  4 20  7]
+ [ 4 35  2 11 39]]
+
+
+### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
+####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+
