@@ -10,8 +10,8 @@ Starter code is located in the /src directory with the main file is main.cpp.
 
 Pictures of the calculater RMSE error are located in the /RMSE_Screenshots folder.
 
-![Alt text](https://raw.github.com/Kamil-K/Self-Driving-Car/ExtendedKalmanFilter/RMSE_Screenshots/Dataset1.PNG?raw=true "RMSE for Dataset 1")
+![Alt text](https://github.com/Kamil-K/Self-Driving-Car/ExtendedKalmanFilter/RMSE_Screenshots/Dataset1.PNG?raw=true "RMSE for Dataset 1")
 
-![ScreenShot](https://raw.github.com/Kamil-K/Self-Driving-Car/ExtendedKalmanFilter/RMSE_Screenshots/Dataset1.PNG)
+![ScreenShot](https://github.com/Kamil-K/Self-Driving-Car/ExtendedKalmanFilter/RMSE_Screenshots/Dataset1.PNG)
 
 ![Alt text](https://raw.github.com/Kamil-K/Self-Driving-Car/ExtendedKalmanFilter/RMSE_Screenshots/Dataset2.PNG?raw=true "RMSE for Dataset 2")
