@@ -5,3 +5,7 @@
 <i>Resources:</i> I use https://github.com/udacity/CarND-Extended-Kalman-Filter-Project as a starting point for this project as well as a Term 2 Simulator from Udacity Self Driving Car NanoDegree program.
 
 <i>Note:</i> This project is completed as a part of the Udacity Self Driving Car NanoDegree program.
+
+Starter code is located in the /src directory with the main file is main.cpp.
+
+Pictures of the calculater RMSE error are located in the /RMSE_Screenshots folder.
